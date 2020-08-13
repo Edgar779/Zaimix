@@ -1,0 +1,10 @@
+.menu-item {
+    display: block;
+    padding: 15px 20px;
+    text-decoration: none;
+}
+
+.menu-item:hover {
+    background-color: #ddd;
+    text-decoration: none;
+}
