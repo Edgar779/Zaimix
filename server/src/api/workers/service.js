@@ -65,6 +65,30 @@ class WorkersServices {
 
     }
   }
+
+  updatePersonalData = async (_id, login, password, repassword) =>{
+
+    const findWorker = await Worker.findById({_id});
+
+    if(!findWorker){
+      return getResponse(false, "Can not find the worker");
+    }
+    findWorker.login = login
+
+    if(password.trim() !== null && password.trim() != "" && password != undefined){
+
+      if(password !== repassword){
+        return getResponse(false, "Password and confirm password does not match");
+      }
+      
+      const hashPassword =  await bcrypt.hash(password, 10);
+      findWorker.password = hashPassword;
+    }
+
+
+  }
+  
+
 }
 
 

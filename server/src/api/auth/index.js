@@ -16,7 +16,7 @@ class AuthRoutes {
    routes = () => {
     this.router.post('/signin', Validations.signin, this.signin);
     this.router.post('/login', Validations.login, this.login);
-    this.router.post('/login/admin', this.loginAdmin);
+
 
   }
 
@@ -35,17 +35,6 @@ class AuthRoutes {
       res.send(response);
     } catch (e) {
       new APIError(e, 500, 'login function in auth/service.js');
-      res.status(500).send(getErrorResponse());
-    }
-  }
-
-
-   loginAdmin = async (req, res) => {
-    try {
-      const response = await Services.loginAdmin(req.body.email, req.body.password);
-      res.send(response);
-    } catch (e) {
-      new APIError(e, 500, 'loginAdmin function in auth/service.ts');
       res.status(500).send(getErrorResponse());
     }
   }

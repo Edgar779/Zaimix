@@ -16,6 +16,7 @@ class WorkersRoutes {
    routes = () => {
     this.router.get('/getWorkers', jwtValidation.validateAdmin, this.getWorkers);
     this.router.post('/updateWorker', jwtValidation.validateAdmin, Validations.updateWorker, this.updateWorker);
+    this.router.post('/updatePersonalData', this.updatePersonalData);
 
     
 
@@ -42,66 +43,15 @@ class WorkersRoutes {
     }
   }
 
-
-   login = async (req, res) => {
+  updatePersonalData = async(req,res) =>{
     try {
-      const response = await Services.login(req.body.login, req.body.password)
+      const response = await Services.updatePersonalData(req.body.id, req.body.login, req.body.password, req.body.repeatPassword);
       res.send(response);
     } catch (e) {
-      new APIError(e, 500, 'login function in auth/service.js');
+      new APIError(e, 500, 'updatePersonalData function in updateWorker/service.js');
       res.status(500).send(getErrorResponse());
     }
   }
-
-
-   loginAdmin = async (req, res) => {
-    try {
-      const response = await Services.loginAdmin(req.body.email, req.body.password);
-      res.send(response);
-    } catch (e) {
-      new APIError(e, 500, 'loginAdmin function in auth/service.ts');
-      res.status(500).send(getErrorResponse());
-    }
-  }
-  //   private changePassword = async(req: IRequest<IAdmin>, res: Response) => {
-  //     try {
-  //       const response = await Services.changePassword(req.user, req.body);
-  //       res.send(response);
-  //     } catch (e) {
-  //       new APIError(e, 500, 'changePassword function in auth/service.ts');
-  //       res.status(500).send(getErrorResponse());
-  //     }
-  //   }
-
-  //   private sendSms = async(req: IRequest<IUser>, res: Response) => {
-  //     try {
-  //       const response = await Services.sendSms(req.body);
-  //       res.send(response);
-  //     } catch (e) {
-  //       new APIError(e, 500, 'sendSms function in auth/service.ts');
-  //       res.status(500).send(getErrorResponse());
-  //     }
-  //   }
-
-  //   private verify = async(req: IRequest<IUser>, res: Response) => {
-  //     try {
-  //       const response = await Services.verify(req.user, req.body);
-  //       res.send(response);
-  //     } catch (e) {
-  //       new APIError(e, 500, 'verify function in auth/service.ts');
-  //       res.status(500).send(getErrorResponse());
-  //     }
-  //   }
-
-  //   private logout = async(req: IRequest<IUser>, res: Response) => {
-  //     try {
-  //       const response = await Services.logout(req.user);
-  //       res.send(response);
-  //     } catch (e) {
-  //       new APIError(e, 500, 'logout function in auth/service.ts');
-  //       res.status(500).send(getErrorResponse());
-  //     }
-  //   }
 
 }
 

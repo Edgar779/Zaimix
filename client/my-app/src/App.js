@@ -12,6 +12,8 @@ import Users from './components/users.component';
 import Banks from './components/banks.component';
 import PrivateRoute from "./components/privateRoute";
 import City from "./components/city.component";
+import Logout from "./components/logout.component";
+
 
 function App() {
   return (<Router>
@@ -22,6 +24,8 @@ function App() {
             <PrivateRoute exact path='/homepage/users' component={Users} />
             <PrivateRoute exact path='/homepage/banks' component={Banks} />
             <PrivateRoute exact path='/homepage/cities' component={City} />
+            <PrivateRoute exact path='/homepage/logout' component={Logout} />
+
             <Route component={NotFound} />
           </Switch>
         

@@ -86,6 +86,9 @@ class AuthServices {
     // return getResponse(true, "verification code is valid", token);
   // }
 
+
+
+
   loginAdmin = async (adminEmail, adminPassword) => {
     const findAdmin = await admin.findOne({ email: adminEmail });
     if (!findAdmin) {

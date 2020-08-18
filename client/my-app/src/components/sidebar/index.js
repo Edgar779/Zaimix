@@ -23,6 +23,12 @@ export default props => {
                     <span style={{color: 'white',  fontSize: '20px', marginLeft: '8px'}}>City</span>
             </a>          
         </li>
+        <li style={{listStyle: 'none'}}>
+            <a className="menu-item" href="/homepage/logout">
+                <i className="fa fa-building" aria-hidden="true" style={{color: 'white'}}></i>
+                    <span style={{color: 'white',  fontSize: '20px', marginLeft: '8px'}}>Logout</span>
+            </a>          
+        </li>
     </ul>
   );
 };
