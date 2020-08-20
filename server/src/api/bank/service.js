@@ -24,6 +24,17 @@ class BankServices {
 
   }
 
+  getBankMts = async (body) => {
+    if(body.constructor === Object && Object.keys(body).length === 0) {
+      return getResponse(false, "body is an empty object.");
+    }
+    if(!body){ 
+      return getResponse(false, "body is an empty object.");
+     }
+
+    return getResponse(true, "success", body);
+
+  }
 
  createBank = async (id, officialName, localName, authToken, active) => {
   

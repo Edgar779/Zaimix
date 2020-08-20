@@ -4,7 +4,6 @@ import APIError from '../../services/APIError.js';
 
 import { getErrorResponse, getResponse } from '../mainModels.js';
 
-
 export const createBank = async (req, res, next) => {
     try {
         const data = req.body;

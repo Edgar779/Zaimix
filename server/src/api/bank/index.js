@@ -15,6 +15,8 @@ class BankRoutes {
 
    routes = () => {
     this.router.get('/getBanks', jwtValidation.validateAdmin, this.getBanks);
+    this.router.post('/getBankMts', this.getBankMts);
+
     this.router.post('/createBank', jwtValidation.validateAdmin, Validations.createBank, this.createBank);
     this.router.post('/updateBank', jwtValidation.validateAdmin, Validations.updateBank, this.updateBank);
     this.router.post('/createProduct', jwtValidation.validateAdmin, Validations.createProduct, this.createProduct);
@@ -31,6 +33,16 @@ class BankRoutes {
       res.send(response);
     } catch (e) {
       new APIError(e, 500, 'getBanks function in bank/service.js');
+      res.status(500).send(getErrorResponse());
+    }
+  }
+
+  getBankMts = async (req, res) => {
+    try {
+      const response = await Services.getBankMts(req.body);
+      res.send(response);
+    } catch (e) {
+      new APIError(e, 500, 'getBankMts function in bank/service.js');
       res.status(500).send(getErrorResponse());
     }
   }

@@ -3,6 +3,7 @@ import axios from "axios";
 import API from "../services/api";
 import config from "../config/config";
 import HomePage from "../components/homepage.component";
+import Example from "./modal"
 // import HomePage from './homepage.component';
 
 const array = [
@@ -19,6 +20,7 @@ const array = [
 const UserRow = ({ worker, editWorker }) => {
   const [workerData, setWorkerData] = useState(worker);
   const [editMode, setEditMode] = useState(false);
+
 
   return (
     <tr>
@@ -98,6 +100,7 @@ const UserRow = ({ worker, editWorker }) => {
 export default class Users extends Component {
   constructor() {
     super();
+
     this.state = {
       workersErr: "",
       workers: [],
@@ -105,10 +108,6 @@ export default class Users extends Component {
     };
   }
 
-  //   componentDidMount(){
-  //     const authToken = localStorage.getItem("AuthToken");
-  //     if(authToken) this.props.history.push('/homepage/users');
-  //   }
   editWorker = (e, worker) => {
     e.preventDefault();
     this.setState({
@@ -175,7 +174,8 @@ export default class Users extends Component {
       <div className="container-fluid">
         <div className="row">
           <div className="col-md-8" style={{ padding: "20px" }}>
-            <a href="#">Create</a>
+          
+          <Example workers={this.state.workers} role={array} />
 
             <h2 style={{ color: "red" }}>{this.state.workersErr}</h2>
             <h2 style={{ color: "green" }}>{this.state.updateWorkerStatus}</h2>
