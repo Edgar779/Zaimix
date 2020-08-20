@@ -51,11 +51,13 @@ import methodOverride from 'method-override';
     }
 
     routes () {
+      
       // this.app.use("/swagger", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
       this.app.get('/', (req, res) => {
         res.redirect('http://localhost:3000/');
       });
+      
       this.app.use('/api', routes);
      
       // this.app.use((err, req: express.Request, res: express.Response, next: express.NextFunction) => {
