@@ -16,6 +16,8 @@ class Routes {
   }
 
   routes = () => {
+
+
     this.router.use('/auth', AuthRoutes);
     this.router.use('/home', HomeRoutes);
     this.router.use('/workers', WorkersRoutes);
@@ -24,7 +26,6 @@ class Routes {
     this.router.use('/cse', CseRoutes);
 
     
-
   }
 }
 

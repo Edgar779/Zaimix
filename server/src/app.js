@@ -51,7 +51,8 @@ import methodOverride from 'method-override';
     }
 
     routes () {
-      
+      this.app.get('/favicon.ico', (req, res) => res.status(204));
+
       // this.app.use("/swagger", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
       this.app.get('/', (req, res) => {
