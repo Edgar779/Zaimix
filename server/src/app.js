@@ -12,7 +12,8 @@ import methodOverride from 'method-override';
   import routes from './api/index.js';
 
   import mainConfig from './env/index.js';
-
+  import favicon from 'serve-favicon';
+  import path from 'path';
   class Server {
     app = express();
 
@@ -22,7 +23,8 @@ import methodOverride from 'method-override';
     }
 
     config () {
-      this.app.use(express.static(__dirname + "../../client/my-app/public/favicon.ico"))
+      
+      this.app.use(favicon(path.join(__dirname, '../../client/my-app/public', 'favicon.ico')))
 
       this.app.use(function (req, res, next) {
         res.header("Access-Control-Allow-Origin", "*");
