@@ -4,8 +4,8 @@
   "main": "index.js",
   "description": "",
   "scripts": {
-    "start": "nodemon --exec npm run server",
-    "server": "nodemon -r esm server/src/index.js",
+    "start": "npm run server",
+    "server": "node -r esm server/src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
