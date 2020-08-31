@@ -24,7 +24,7 @@ import methodOverride from 'method-override';
 
     config () {
       
-      this.app.use(favicon(path.join(__dirname, '../../client/my-app/public', 'favicon.ico')))
+      // this.app.use(favicon(path.join(__dirname, '../../client/my-app/public', 'favicon.ico')))
 
       this.app.use(function (req, res, next) {
         res.header("Access-Control-Allow-Origin", "*");
@@ -60,8 +60,8 @@ import methodOverride from 'method-override';
       // this.app.use("/swagger", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
       this.app.get('/', (req, res) => {
-        res.send('ok');
-        // res.redirect('http://localhost:3000/');
+        // res.send('ok');
+        res.redirect('http://localhost:3000/');
       });
 
       this.app.use('/api', routes);

@@ -58,7 +58,7 @@ export const createProduct = async (req, res, next) =>{
         const schema = Joi.object().keys({
             productId: Joi.string().required(),
             name: Joi.string().required(),
-            document: Joi.boolean().required(),
+            // document: Joi.boolean().required(),
             print: Joi.number().required(),
             bankId: Joi.string().required()
         });

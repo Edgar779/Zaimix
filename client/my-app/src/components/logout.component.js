@@ -1,14 +1,14 @@
-    import { useHistory } from "react-router";
+import { useHistory } from "react-router";
 
-    export default function Logout(){
+export default function Logout() {
 
     const history = useHistory();
 
     localStorage.removeItem('AuthToken');
 
     history.push({
-        pathname:  "/"
+        pathname: "/"
     })
 
-     return null;
+    return null;
 }

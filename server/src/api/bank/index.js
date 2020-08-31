@@ -79,7 +79,7 @@ class BankRoutes {
 
   createProduct = async (req,res) =>{
     try {
-      const response = await Services.createProduct(req.body.bankId, req.body.productId, req.body.name, req.body.document, req.body.print);
+      const response = await Services.createProduct(req.body.bankId, req.body.productId, req.body.name, req.body.print);
       res.send(response);
     } catch (e) {
       new APIError(e, 500, 'createProduct function in bank/service.js');
@@ -89,7 +89,7 @@ class BankRoutes {
 
   updateProduct = async (req,res) =>{
     try {
-      const response = await Services.updateProduct(req.body.id, req.body.name, req.body.print, req.body.document);
+      const response = await Services.updateProduct(req.body.id, req.body.name, req.body.print);
       res.send(response);
     } catch (e) {
       new APIError(e, 500, 'updateProduct function in bank/service.js');

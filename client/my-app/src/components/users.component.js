@@ -3,7 +3,8 @@ import axios from "axios";
 import API from "../services/api";
 import config from "../config/config";
 import HomePage from "../components/homepage.component";
-import Example from "./modal"
+import {CreateWorker} from "./modal";
+import UserRow from "./usersRow.component";
 // import HomePage from './homepage.component';
 
 const array = [
@@ -17,85 +18,6 @@ const array = [
   },
 ];
 
-const UserRow = ({ worker, editWorker }) => {
-  const [workerData, setWorkerData] = useState(worker);
-  const [editMode, setEditMode] = useState(false);
-
-
-  return (
-    <tr>
-      <td>
-        {editMode ? (
-          <input
-            value={workerData.name}
-            onChange={(e) => {
-              setWorkerData({
-                ...workerData,
-                name: e.target.value,
-              });
-            }}
-          />
-        ) : (
-          workerData.name
-        )}
-      </td>
-      <td>
-        {editMode ? <input value={workerData.login}  onChange={(e) => {
-              setWorkerData({
-                ...workerData,
-                login: e.target.value,
-              });
-            }} /> : workerData.login}
-      </td>
-
-      <td>
-  
-  {editMode ? (<select value={workerData.role} onChange={(e) => {
-     setWorkerData({
-      ...workerData,
-      role: parseInt(e.target.value),
-    });
-  }}>
-          <option value="2">admin</option>
-          <option value="3">operator</option>
-          <option value="6">curier</option>
-        </select>) : 
-        (array[0][workerData.role])
-        
-  }
-
-</td>
-{editMode ? (
-  <td>
-    <input type="text" placeholder="Password" onChange={(e) => {
-         setWorkerData({
-          ...workerData,
-          password: e.target.value,
-        });
-    }} />
-  </td>
-): null}
-        
-
-      <td>
-        <a
-          herf="#"
-          style={{ color: "#007bff", cursor: "pointer" }}
-          onClick={(e) => {
-            if (editMode) {
-              editWorker(e, workerData);
-              setEditMode(false);
-            } else {
-              setEditMode(true);
-            }
-          }}
-        >
-          {editMode ? "Save" : "Edit"}
-        </a>
-      </td>
-    </tr>
-  );
-};
 
 export default class Users extends Component {
   constructor() {
@@ -113,7 +35,9 @@ export default class Users extends Component {
     this.setState({
       workersErr: "",
       updateWorkerStatus: "",
+      isAdmin: true
     });
+
     const formData = {
       id: worker._id,
       name: worker.name,
@@ -121,7 +45,13 @@ export default class Users extends Component {
       password: worker.password,
       role: worker.role,
     };
+//     if(worker.password.trim() !== null && worker.password.trim() != "" && worker.password != undefined){
+//      formData.password = worker.password
+//      console.log(formData);
 
+//     }
+
+// console.log(formData);
     const authToken = localStorage.getItem("AuthToken");
     API.post(`${config.API_URL}/api/workers/updateWorker`, formData, {
       headers: {
@@ -142,6 +72,7 @@ export default class Users extends Component {
         console.log(error);
       });
   };
+  
   componentDidMount() {
     const authToken = localStorage.getItem("AuthToken");
 
@@ -158,12 +89,13 @@ export default class Users extends Component {
         }
 
         let { workers } = this.state;
-
+       
         workers.push(...response.data.data);
 
-        return this.setState({ workers });
+        this.setState({ workers });
       })
       .catch(function (error) {
+
         console.log(error);
       });
   }
@@ -175,7 +107,7 @@ export default class Users extends Component {
         <div className="row">
           <div className="col-md-8" style={{ padding: "20px" }}>
           
-          <Example workers={this.state.workers} role={array} />
+          <CreateWorker workers={this.state.workers} role={array} />
 
             <h2 style={{ color: "red" }}>{this.state.workersErr}</h2>
             <h2 style={{ color: "green" }}>{this.state.updateWorkerStatus}</h2>
@@ -187,7 +119,10 @@ export default class Users extends Component {
                 <th>Group</th>
               </tr>
               {workers.map((worker) => {
-                return <UserRow worker={worker} editWorker={this.editWorker} />;
+
+                let {password, ...data} = worker;
+                
+                return <UserRow worker={data} editWorker={this.editWorker} />;
               })}
             </table>
 

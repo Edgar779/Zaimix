@@ -32,7 +32,6 @@ const createJwtValidation = (userTypes) => {
 				}
 			
 				if (!userTypes.includes(dtls.userRole)) {
-					
 
 					console.log('b');
 					new APIError('UNAUTHORIZED', 401);
@@ -48,7 +47,7 @@ const createJwtValidation = (userTypes) => {
 						return res.sendStatus(401);
 					}
 					// if (user.devices[0] == dtls.deviceId) {
-						req.user = user;
+						req.user = worker;
 						return next();
 					// } 
 					// else {

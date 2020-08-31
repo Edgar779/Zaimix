@@ -29,8 +29,7 @@ class WorkersServices {
       login,
       role
     }
-    
-    if(password.trim() !== null && password.trim() != "" && password != undefined){
+    if(password != undefined){
 
       const hashPassword =  await bcrypt.hash(password, 10);
       const updateWorkerPassword = await Workers.findById(_id, {useFindAndModify: false});

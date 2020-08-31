@@ -69,7 +69,6 @@ class BankServices {
   getProduct = async (id) =>{
 
     const findProduct = await Product.find({bank: id})
-    
     if(!findProduct){
       return getResponse(false, "Cannot find the products");
     }
@@ -78,7 +77,7 @@ class BankServices {
 
   }
   
-  createProduct = async (bankId, productId, name, document, print) =>{
+  createProduct = async (bankId, productId, name, print) =>{
 
     if (!bankId.match(/^[0-9a-fA-F]{24}$/)) {
       return getResponse(false, `Cannot find the bank with id ${bankId}`);
@@ -86,7 +85,7 @@ class BankServices {
 
     const bank = await Bank.findById({_id: bankId});
 
-    const product = new Product({id: productId, name, document, print});
+    const product = new Product({id: productId, name, print});
 
     if(!product){
       return getResponse(false, "Cannot create a product");
@@ -100,7 +99,7 @@ class BankServices {
     return getResponse(true, "Product has been created", product);
 
   }
-  updateProduct = async (id, name, print, document) =>{
+  updateProduct = async (id, name, print) =>{
 
     if (!id.match(/^[0-9a-fA-F]{24}$/)) {
       return getResponse(false, `Cannot find a product with id ${id}`);
@@ -115,7 +114,6 @@ class BankServices {
     }
       product.name = name;
       product.print = print;
-      product.document = document;
       product.save();
     
     return getResponse(true, "Product has been updated", product);
