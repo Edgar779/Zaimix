@@ -19,25 +19,25 @@ export default class City extends Component {
     };
   }
   //   https://api.boxberry.ru/json.php?token=d6f33e419c16131e5325cbd84d5d6000&method=CourierListCities
-  // componentDidMount() {
-  //   API.get(`${config.API_URL}/api/city/getCities`)
-  //     .then((response) => {
-  //       if (!response.data.success) {
-  //         return this.setState({
-  //           cityErr: response.data.message,
-  //         });
-  //       }
+  componentDidMount() {
+    API.get(`${config.API_URL}/api/city/getCities`)
+      .then((response) => {
+        if (!response.data.success) {
+          return this.setState({
+            cityErr: response.data.message,
+          });
+        }
 
-  //       let { cities } = this.state;
+        let { cities } = this.state;
 
-  //       cities.push(...response.data.data);
+        cities.push(...response.data.data);
 
-  //       return this.setState({ cities });
-  //     })
-  //     .catch(function (error) {
-  //       console.log(error);
-  //     });
-  // }
+        return this.setState({ cities });
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
 
 
 
@@ -59,6 +59,9 @@ export default class City extends Component {
   changePlace = async (checked) => {
 
     await this.setState({ isFin: checked })
+    if(!this.state.isAvailable){
+        return this.changeStatus()
+    }
     if (this.state.isFin) {
        const getFin = await API.get(`${config.API_URL}/api/city/getFinCities`, {
         headers: {
@@ -88,10 +91,22 @@ export default class City extends Component {
 
   }
 
-  changeStatus = async (checked)=>{
+  changeStatus = async (checked, status)=>{
     await this.setState({ isAvailable: checked })
-    
-    console.log(this.state.isAvailable);
+
+    if(checked === true){
+      return this.changePlace(this.state.isFin);
+    }
+    const getUn = await API.get(`${config.API_URL}/api/city/getUnCities`, {
+      headers: {
+        Authorization: authToken
+      }
+    })
+    let { cities } = this.state;
+    cities = [];
+    cities.push(...getUn.data.data);
+
+    return this.setState({ cities });
 
   }
 
@@ -104,13 +119,12 @@ export default class City extends Component {
           <div className="col-md-8" style={{ padding: "20px" }}>
 
             <BootstrapSwitchButton
-              checked={false}
               onlabel='Available'
               offlabel='Unavailable'
               onstyle="dark"
               checked={this.state.isAvailable}
               onChange={(checked) => {
-                this.changeStatus(checked)
+                this.changeStatus(checked, 'isAvailable')
               }}
               // onChange={(checked) => {
               //     this.setState({ isUserAdmin: checked })
@@ -118,9 +132,8 @@ export default class City extends Component {
               width={120}
             />
 
-            <div style={{ textAlign: 'right' }}>
+{this.state.isAvailable &&       <div style={{ textAlign: 'right' }}>
               <BootstrapSwitchButton
-
                 onlabel='Fin'
                 offlabel='Guru'
                 onstyle="dark"
@@ -132,6 +145,7 @@ export default class City extends Component {
                 width={80}
               />
             </div>
+  }
             
 
             {/* <CreateBank /> */}
