@@ -3,43 +3,46 @@ import { Products } from "./modal"
 import { Button, Modal, Form } from 'react-bootstrap';
 
 const array = [
-  {
-    1: "superadmin",
-    2: "admin",
-    3: "operator",
-    4: "verificator",
-    5: "logist",
-    6: "curier",
-  },
+    {
+        1: "superadmin",
+        2: "admin",
+        3: "operator",
+        4: "verificator",
+        5: "logist",
+        6: "curier",
+    },
 ];
 
-export default function CityRow({ city }) {
-  const [cityData, setCitykData] = useState(city);
-  const [editMode, setEditMode] = useState(false);
-  return (
-    <tr>
-      <td>
-        {cityData.City}
-      </td>
+export default function CityRow({ city, editPlace }) {
+    const [cityData, setCitykData] = useState(city);
+    const [editMode, setEditMode] = useState(false);
 
-      <td>{cityData.Area}</td>
+    return (
+        <tr>
+            <td>
+                {city.City}
+            </td>
 
-      <td>{cityData.comment}</td>
+            <td>{city.Area}</td>
 
-      <td>
-      <Form.Group controlId="exampleForm.ControlSelect1">
-              <Form.Label>Select the position</Form.Label>
-              <Form.Control as="select" >
-                <option value="2">admin</option>
-                <option value="3">operator</option>
-                <option value="6">curier</option>
-              </Form.Control>
-      </Form.Group>
-      {/* onChange={(e) => setPosition(parseInt(e.target.value))} */}
-      </td>
- 
-    </tr>
-  );
+            <td>{city.comment}</td>
+
+            <td>
+
+                <Form.Group controlId="exampleForm.ControlSelect1">
+                    <Form.Control as="select" value={city.delivery} onChange={(e) =>{editPlace(e, city)}}>
+                        
+                        <option value="0">Unavail</option>
+
+                        <option value="1">Fin</option>
+                        <option value="2">Guru</option>
+
+                    </Form.Control>
+                </Form.Group>
+            </td>
+
+        </tr>
+    );
 };
 
 

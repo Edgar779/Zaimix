@@ -57,7 +57,6 @@ class CityServices {
     getGuruCities = async () => {
 
        const findCity = await Findostavka.find({delivery: '2'});
-        
             if(!findCity){
                 return getResponse(false, 'Can not find the city');    
             }
@@ -91,7 +90,7 @@ class CityServices {
     findCity.delivery = delivery;
     findCity.save()
 
-    return getResponse(true, 'Updated');    
+    return getResponse(true, 'Updated', findCity);    
     
     }
 

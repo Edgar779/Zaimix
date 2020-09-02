@@ -43,6 +43,7 @@ const createJwtValidation = (userTypes) => {
 					const worker = await Workers.findOne({ _id: dtls._id });
 				
 					if(!worker){
+						console.log('c');
 						new APIError('UNAUTHORIZED', 401);
 						return res.sendStatus(401);
 					}
@@ -57,6 +58,8 @@ const createJwtValidation = (userTypes) => {
 					// }	
 				}
 				 else {
+					console.log('d');
+
 					const worker = await Workers.findOne({ _id: dtls._id, role: dtls.userRole });
 					if (worker) {
 						req.user = worker;
