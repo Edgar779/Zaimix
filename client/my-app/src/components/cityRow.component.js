@@ -14,7 +14,7 @@ const array = [
 ];
 
 export default function CityRow({ city, editPlace }) {
-    const [cityData, setCitykData] = useState(city);
+    const [cityData, setCityData] = useState(city);
     const [editMode, setEditMode] = useState(false);
 
     return (
@@ -25,7 +25,21 @@ export default function CityRow({ city, editPlace }) {
 
             <td>{city.Area}</td>
 
-            <td>{city.comment}</td>
+            <td>
+            {editMode ? (
+          <input
+            value={cityData.localName}
+            onChange={(e) => {
+              setCityData({
+                ...cityData,
+                comment: e.target.value,
+              });
+            }}
+          />
+        ) : (
+            cityData.comment
+          )}
+            </td>
 
             <td>
 

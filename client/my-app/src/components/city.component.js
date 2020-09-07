@@ -6,6 +6,10 @@ import config from "../config/config";
 import CityRow from "./cityRow.component";
 import './style.css';
 import BootstrapSwitchButton from 'bootstrap-switch-button-react'
+import { trackPromise } from 'react-promise-tracker';
+import { LoadingIndicator } from './loadingIndicator.component.js'
+import { Button, Modal, Form } from 'react-bootstrap';
+
 const authToken = localStorage.getItem("AuthToken");
 
 export default class City extends Component {
@@ -14,35 +18,38 @@ export default class City extends Component {
     this.state = {
       cityErr: "",
       cities: [],
-      isFin: true,
+      isFin: "",
       isAvailable: true
     };
   }
   //   https://api.boxberry.ru/json.php?token=d6f33e419c16131e5325cbd84d5d6000&method=CourierListCities
   componentDidMount() {
-    API.get(`${config.API_URL}/api/city/getCities`)
-      .then((response) => {
-        if (!response.data.success) {
-          return this.setState({
-            cityErr: response.data.message,
-          });
-        }
+    trackPromise(
+      API.get(`${config.API_URL}/api/city/getCities`)
+        .then((response) => {
+          if (!response.data.success) {
+            return this.setState({
+              cityErr: response.data.message,
+            });
+          }
 
-        let { cities } = this.state;
+          let { cities } = this.state;
 
-        cities.push(...response.data.data);
+          cities.push(...response.data.data);
 
-        return this.setState({ cities });
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+          return this.setState({ cities });
+        })
+        .catch(function (error) {
+          console.log(error);
+        }));
   }
 
 
 
   editPlace = async (e, city) => {
-    e.preventDefault();
+    // e.preventDefault();
+const value = e.target.value;
+
     const formData = {
       id: city._id,
       delivery: e.target.value
@@ -52,31 +59,33 @@ export default class City extends Component {
         Authorization: authToken
       }
     });
-   return this.changePlace(this.state.isFin)
+
+    return this.changePlace()
   }
 
 
-  changePlace = async (checked) => {
-
-    await this.setState({ isFin: checked })
-    if(!this.state.isAvailable){
-        return this.changeStatus()
-    }
-    if (this.state.isFin) {
-       const getFin = await API.get(`${config.API_URL}/api/city/getFinCities`, {
+  changePlace = async (val = null) => {
+    const value = val || this.state.isFin
+    // await this.setState({ isFin: checked })
+    // if(!this.state.isAvailable){
+    //     return this.changeStatus()
+    // }
+    
+    if (value === '1') {
+      const getFin = await trackPromise(API.get(`${config.API_URL}/api/city/getFinCities`, {
         headers: {
           Authorization: authToken
         }
       })
+      )
+      
       let { cities } = this.state;
       cities = [];
       cities.push(...getFin.data.data);
 
-      return this.setState({ cities });
+      return this.setState({ cities, isFin: value });
     }
-
-    else {
-
+    else if (value === '2') {
       const getGuru = await API.get(`${config.API_URL}/api/city/getGuruCities`, {
         headers: {
           Authorization: authToken
@@ -85,17 +94,16 @@ export default class City extends Component {
       let { cities } = this.state;
       cities = [];
       cities.push(...getGuru.data.data);
-       return this.setState({ cities });
-       
+      return this.setState({ cities,  isFin: value });
     }
 
   }
 
-  changeStatus = async (checked, status)=>{
-    await this.setState({ isAvailable: checked })
-
-    if(checked === true){
-      return this.changePlace(this.state.isFin);
+  changeStatus = async (checked, status) => {
+    await this.setState({ isAvailable: true })
+// console.log(checked)
+    if (checked === true) {
+      return this.changePlace('1');
     }
     const getUn = await API.get(`${config.API_URL}/api/city/getUnCities`, {
       headers: {
@@ -105,8 +113,8 @@ export default class City extends Component {
     let { cities } = this.state;
     cities = [];
     cities.push(...getUn.data.data);
-
-    return this.setState({ cities });
+    // await this.setState({ isAvailable: true })
+    return this.setState({ cities, isAvailable: false });
 
   }
 
@@ -132,25 +140,39 @@ export default class City extends Component {
               width={120}
             />
 
-{this.state.isAvailable &&       <div style={{ textAlign: 'right' }}>
-              <BootstrapSwitchButton
-                onlabel='Fin'
-                offlabel='Guru'
-                onstyle="dark"
-                checked={this.state.isFin}
-                onChange={(checked) => {
-                  this.changePlace(checked)
-                }}
+            {this.state.isAvailable && <div style={{ marginTop: '20px' }}>
+              <Form.Group controlId="exampleForm.ControlSelect1" onChange={(e) => { this.changePlace(e.target.value) }}>
+                <Form.Control as="select">
 
-                width={80}
-              />
+                  <option value="1">Fin</option>
+                  <option value="2">Guru</option>
+
+                </Form.Control>
+              </Form.Group>
             </div>
-  }
-            
+
+              //  <div style={{ textAlign: 'right' }}>
+              //           <BootstrapSwitchButton
+              //             onlabel='Fin'
+              //             offlabel='Guru'
+              //             onstyle="dark"
+              //             checked={this.state.isFin}
+              //             onChange={(checked) => {
+              //               this.changePlace(checked)
+              //             }}
+
+              //             width={80}
+              //           />
+              //         </div>
+
+            }
+
 
             {/* <CreateBank /> */}
             {/* <BootstrapSwitchButton checked={true} onstyle="success" /> */}
-            <div className="table-responsive" style={{ maxHeight: '75vh', marginTop: '30px' }}>
+            <div className="table-responsive" style={{ maxHeight: '75vh', marginTop: '30px', position: 'relative', minHeight: "500px" }}>
+
+
               <table className="table" style={{ marginTop: '10px' }}>
 
                 <tr>
@@ -161,22 +183,20 @@ export default class City extends Component {
 
 
                 </tr>
+
+
                 {cities.map((city) => {
-                  
+
                   return <CityRow city={city} editPlace={this.editPlace} />;
                 })}
+
               </table>
+              <LoadingIndicator />
+
             </div>
+
           </div>
 
-          {/* {cities.map((city) => (
-            <div key={city.id}>
-              {city.City}-----{city.Area}------
-              <input type="button" value="Edit" />
-            </div>
-          ))} */}
-
-          {/* <i class="fa fa-bars" aria-hidden="true" style={{fontSize: '50px'}}></i> */}
         </div>
       </div>
     );
