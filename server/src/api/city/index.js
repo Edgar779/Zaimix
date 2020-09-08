@@ -87,5 +87,4 @@ class CityRoutes {
   }
 
 }
-
 export default new CityRoutes().router;
