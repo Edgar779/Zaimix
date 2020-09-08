@@ -14,7 +14,6 @@ import PrivateRoute from "./components/privateRoute";
 import City from "./components/city.component";
 import Logout from "./components/logout.component";
 
-
 function App() {
   return (<Router>
     <div className="App">
