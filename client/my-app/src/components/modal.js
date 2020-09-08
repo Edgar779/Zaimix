@@ -11,7 +11,6 @@ const CreateWorker = ({ workers, role }) => {
   const [password, setPassword] = useState('');
   const [position, setPosition] = useState('2');
   const [response, setResponse] = useState('');
-  // const [succ, setSucc] = useState('');
 
   const [show, setShow] = useState(false);
 
@@ -35,7 +34,6 @@ const CreateWorker = ({ workers, role }) => {
       role: position
     }
 
-    // console.log(formData);
     const authToken = localStorage.getItem("AuthToken");
     const test = await API.post(`${config.API_URL}/api/auth/signin`, formData, {
       headers: {
@@ -148,7 +146,6 @@ const Products = ({ bank }) => {
       print: doc
     }
 
-    // console.log(formData);
     const authToken = localStorage.getItem("AuthToken");
     // const getProduct = await API.post(`${config.API_URL}/api/bank/getProduct`, bank._id, {
     //   headers: {
