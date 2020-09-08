@@ -3,10 +3,7 @@ import * as mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
 const schema = new Schema({
-    // city: {
-    //     type: Schema.Types.ObjectId,
-    //     ref: "City"
-    // },
+
     day: {
         type: String
     },
