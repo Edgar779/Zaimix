@@ -143,4 +143,5 @@ export default function UserRow({ worker, editWorker }) {
       </td>
     </tr>
   );
+  
 };
