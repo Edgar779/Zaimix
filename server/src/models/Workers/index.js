@@ -3,10 +3,7 @@ import * as mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
 const schema = new Schema({
-    // devices: [{
-    //     type: Schema.Types.ObjectId,
-    //     ref: "Device"
-    // }],
+
     name: {
         type: String
     },
