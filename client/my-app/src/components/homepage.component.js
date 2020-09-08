@@ -28,8 +28,6 @@ export default class HomePage extends Component {
     return (
       <div className="container-fluid">
         <div className="row">
-          {/* <i class="fa fa-bars" aria-hidden="true" style={{fontSize: '50px'}}></i> */}
-
 
         </div>
 
