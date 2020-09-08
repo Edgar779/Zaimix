@@ -18,8 +18,6 @@ class WorkersRoutes {
     this.router.post('/updateWorker', jwtValidation.validateAdmin, Validations.updateWorker, this.updateWorker);
     this.router.post('/updatePersonalData', this.updatePersonalData);
 
-    
-
   }
 
   getWorkers = async (req, res) => {
