@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import axios from "axios";
 import API from "../services/api";
 import config from "../config/config";
-// import HomePage from './homepage.component';
 import CityRow from "./cityRow.component";
 import './style.css';
 import BootstrapSwitchButton from 'bootstrap-switch-button-react'
@@ -22,7 +21,6 @@ export default class City extends Component {
       isAvailable: true
     };
   }
-  //   https://api.boxberry.ru/json.php?token=d6f33e419c16131e5325cbd84d5d6000&method=CourierListCities
   componentDidMount() {
     trackPromise(
       API.get(`${config.API_URL}/api/city/getCities`)
@@ -44,11 +42,9 @@ export default class City extends Component {
         }));
   }
 
-
-
   editPlace = async (e, city) => {
     // e.preventDefault();
-const value = e.target.value;
+    const value = e.target.value;
 
     const formData = {
       id: city._id,
@@ -70,7 +66,7 @@ const value = e.target.value;
     // if(!this.state.isAvailable){
     //     return this.changeStatus()
     // }
-    
+
     if (value === '1') {
       const getFin = await trackPromise(API.get(`${config.API_URL}/api/city/getFinCities`, {
         headers: {
@@ -78,7 +74,7 @@ const value = e.target.value;
         }
       })
       )
-      
+
       let { cities } = this.state;
       cities = [];
       cities.push(...getFin.data.data);
@@ -94,14 +90,13 @@ const value = e.target.value;
       let { cities } = this.state;
       cities = [];
       cities.push(...getGuru.data.data);
-      return this.setState({ cities,  isFin: value });
+      return this.setState({ cities, isFin: value });
     }
 
   }
 
   changeStatus = async (checked, status) => {
     await this.setState({ isAvailable: true })
-// console.log(checked)
     if (checked === true) {
       return this.changePlace('1');
     }
@@ -113,7 +108,6 @@ const value = e.target.value;
     let { cities } = this.state;
     cities = [];
     cities.push(...getUn.data.data);
-    // await this.setState({ isAvailable: true })
     return this.setState({ cities, isAvailable: false });
 
   }
@@ -150,26 +144,8 @@ const value = e.target.value;
                 </Form.Control>
               </Form.Group>
             </div>
-
-              //  <div style={{ textAlign: 'right' }}>
-              //           <BootstrapSwitchButton
-              //             onlabel='Fin'
-              //             offlabel='Guru'
-              //             onstyle="dark"
-              //             checked={this.state.isFin}
-              //             onChange={(checked) => {
-              //               this.changePlace(checked)
-              //             }}
-
-              //             width={80}
-              //           />
-              //         </div>
-
             }
 
-
-            {/* <CreateBank /> */}
-            {/* <BootstrapSwitchButton checked={true} onstyle="success" /> */}
             <div className="table-responsive" style={{ maxHeight: '75vh', marginTop: '30px', position: 'relative', minHeight: "500px" }}>
 
 
@@ -181,10 +157,7 @@ const value = e.target.value;
                   <th>Comment</th>
                   <th>Place</th>
 
-
                 </tr>
-
-
                 {cities.map((city) => {
 
                   return <CityRow city={city} editPlace={this.editPlace} />;
