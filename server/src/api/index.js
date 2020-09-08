@@ -23,9 +23,7 @@ class Routes {
     this.router.use('/workers', WorkersRoutes);
     this.router.use('/bank', BankRoutes);
     this.router.use('/city', CityRoutes);
-    this.router.use('/cse', CseRoutes);
-
-    
+    this.router.use('/cse', CseRoutes); 
   }
 }
 
