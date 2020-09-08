@@ -13,7 +13,6 @@ export default class Banks extends Component {
             bankRes: '',
             banks: []
         }
-
     }
 
     componentDidMount() {
@@ -30,7 +29,6 @@ export default class Banks extends Component {
                     return this.setState({
                         banksErr: response.data.message
                     })
-
                 }
 
                 let { banks } = this.state;
@@ -43,7 +41,6 @@ export default class Banks extends Component {
             .catch(function (error) {
                 console.log(error);
             });
-
     }
 
 
@@ -67,10 +64,6 @@ export default class Banks extends Component {
 
         return this.setState({ bankRes: updateBank.data.message });
     };
-
-
-
-
 
     render() {
         const { banks } = this.state;
@@ -102,10 +95,6 @@ export default class Banks extends Component {
                     </div>
                 </div>
             </div>
-            //     <div>
-            //     {banks.map(bank => <div key={bank.id}>{bank.id}{bank.officialName}{bank.localName}{bank.authToken}</div>)}
-            //   </div>
-
         );
     }
 }
