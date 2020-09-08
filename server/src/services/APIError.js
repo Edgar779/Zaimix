@@ -23,5 +23,4 @@ class ExtendableError extends Error {
       }
     }
   }
-  
   export default APIError;
