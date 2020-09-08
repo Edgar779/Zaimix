@@ -50,5 +50,4 @@ class CseRoutes {
     }
   }
 }
-
 export default new CseRoutes().router;
