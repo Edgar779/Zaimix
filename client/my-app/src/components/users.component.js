@@ -3,7 +3,7 @@ import axios from "axios";
 import API from "../services/api";
 import config from "../config/config";
 import HomePage from "../components/homepage.component";
-import {CreateWorker} from "./modal";
+import { CreateWorker } from "./modal";
 import UserRow from "./usersRow.component";
 // import HomePage from './homepage.component';
 
@@ -45,13 +45,7 @@ export default class Users extends Component {
       password: worker.password,
       role: worker.role,
     };
-//     if(worker.password.trim() !== null && worker.password.trim() != "" && worker.password != undefined){
-//      formData.password = worker.password
-//      console.log(formData);
 
-//     }
-
-// console.log(formData);
     const authToken = localStorage.getItem("AuthToken");
     API.post(`${config.API_URL}/api/workers/updateWorker`, formData, {
       headers: {
@@ -72,7 +66,7 @@ export default class Users extends Component {
         console.log(error);
       });
   };
-  
+
   componentDidMount() {
     const authToken = localStorage.getItem("AuthToken");
 
@@ -89,7 +83,7 @@ export default class Users extends Component {
         }
 
         let { workers } = this.state;
-       
+
         workers.push(...response.data.data);
 
         this.setState({ workers });
@@ -106,8 +100,8 @@ export default class Users extends Component {
       <div className="container-fluid">
         <div className="row">
           <div className="col-md-8" style={{ padding: "20px" }}>
-          
-          <CreateWorker workers={this.state.workers} role={array} />
+
+            <CreateWorker workers={this.state.workers} role={array} />
 
             <h2 style={{ color: "red" }}>{this.state.workersErr}</h2>
             <h2 style={{ color: "green" }}>{this.state.updateWorkerStatus}</h2>
@@ -120,8 +114,8 @@ export default class Users extends Component {
               </tr>
               {workers.map((worker) => {
 
-                let {password, ...data} = worker;
-                
+                let { password, ...data } = worker;
+
                 return <UserRow worker={data} editWorker={this.editWorker} />;
               })}
             </table>
