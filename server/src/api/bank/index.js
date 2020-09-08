@@ -98,5 +98,4 @@ class BankRoutes {
   }
 
 }
-
 export default new BankRoutes().router;
