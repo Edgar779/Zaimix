@@ -38,46 +38,6 @@ class AuthRoutes {
       res.status(500).send(getErrorResponse());
     }
   }
-  //   private changePassword = async(req: IRequest<IAdmin>, res: Response) => {
-  //     try {
-  //       const response = await Services.changePassword(req.user, req.body);
-  //       res.send(response);
-  //     } catch (e) {
-  //       new APIError(e, 500, 'changePassword function in auth/service.ts');
-  //       res.status(500).send(getErrorResponse());
-  //     }
-  //   }
-
-  //   private sendSms = async(req: IRequest<IUser>, res: Response) => {
-  //     try {
-  //       const response = await Services.sendSms(req.body);
-  //       res.send(response);
-  //     } catch (e) {
-  //       new APIError(e, 500, 'sendSms function in auth/service.ts');
-  //       res.status(500).send(getErrorResponse());
-  //     }
-  //   }
-
-  //   private verify = async(req: IRequest<IUser>, res: Response) => {
-  //     try {
-  //       const response = await Services.verify(req.user, req.body);
-  //       res.send(response);
-  //     } catch (e) {
-  //       new APIError(e, 500, 'verify function in auth/service.ts');
-  //       res.status(500).send(getErrorResponse());
-  //     }
-  //   }
-
-  //   private logout = async(req: IRequest<IUser>, res: Response) => {
-  //     try {
-  //       const response = await Services.logout(req.user);
-  //       res.send(response);
-  //     } catch (e) {
-  //       new APIError(e, 500, 'logout function in auth/service.ts');
-  //       res.status(500).send(getErrorResponse());
-  //     }
-  //   }
-
 }
 
 export default new AuthRoutes().router;
