@@ -11,8 +11,7 @@ import mainConfig from './env';
 mongoose.connect(mainConfig.MONGO_URL, { useNewUrlParser: true }, async () => {
   if (mainConfig.NODE_ENV !== 'test') console.log('Mongodb connected on port 27017');
 });
-// mongoose.set('useFindAndModify', false);
-// mongoose.set('useCreateIndex', true);
+
 
 // listen on port
 const server = http.createServer(app).listen(config.PORT, () => {

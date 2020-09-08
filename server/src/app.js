@@ -65,20 +65,6 @@ import methodOverride from 'method-override';
       });
 
       this.app.use('/api', routes);
-     
-      // this.app.use((err, req: express.Request, res: express.Response, next: express.NextFunction) => {
-      //   if (!(err instanceof APIError)) {
-      //     new APIError(err, 500, 'Unknown error');
-      //   }
-      //   res.status(500).send(getErrorResponse());
-      // });
-
-      // this.app.use((req: express.Request, res: express.Response, next: express.NextFunction) => {
-      //   res.status(404).json({
-      //     success: false,
-      //     message: 'API not found'
-      //   });
-      // });
 
     }
   }
