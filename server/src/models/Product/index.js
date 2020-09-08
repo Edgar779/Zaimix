@@ -13,9 +13,7 @@ const schema = new Schema({
     name: {
         type: String
     },
-    // document: {
-    //     type: Boolean
-    // },
+
     print: {
         type: Number,
         default: 0
