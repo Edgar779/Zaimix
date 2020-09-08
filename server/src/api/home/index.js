@@ -61,15 +61,6 @@ class HomeRoutes {
     }
   }
 
-  // private addPill = async (req: IRequest<IAdmin>, res: Response) =>{
-  //   try {
-  //     const response = await Services.addPill(req.file, req.body.name);
-  //     res.send(response);
-  //   } catch (e) {
-  //     new APIError(e, 500, 'addPromotion function in home/service.ts');
-  //     res.status(500).send(getErrorResponse());
-  //   }
-  // }
   addPromotion = async (req, res) => {
     try {
       const response = await Services.addPromotion(req.file, req.body.name);
